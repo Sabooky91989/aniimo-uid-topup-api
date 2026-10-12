@@ -1,0 +1,40 @@
+### Variables
+@baseUrl = http://localhost:4000/api/v1
+
+### 1. Verify Character by UID and Server (e.g. Sweettoast Lv. 80)
+POST {{baseUrl}}/aniimo/verify
+Content-Type: application/json
+
+{
+  "uid": "412000126173",
+  "server": "4"
+}
+
+### 2. Verify Character - Negative Test (Invalid Non-numeric UID)
+POST {{baseUrl}}/aniimo/verify
+Content-Type: application/json
+
+{
+  "uid": "ABC999123",
+  "server": "4"
+}
+
+### 3. List Supported Game Servers
+GET {{baseUrl}}/aniimo/servers
+
+### 4. Get Taiwan Region Packages (TWD Currency / MyCard Channel)
+GET {{baseUrl}}/aniimo/packages
+
+### 5. Create UID Top-Up Order with MyCard Gateway Session
+POST {{baseUrl}}/aniimo/order
+Content-Type: application/json
+
+{
+  "uid": "412000126173",
+  "serverId": "4",
+  "packageId": "prod_star_300",
+  "payChannel": "mycard_points"
+}
+
+### 6. Health Check
+GET http://localhost:4000/health

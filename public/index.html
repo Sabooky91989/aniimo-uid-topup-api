@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aniimo Webshop - UID Top-Up Service (Taiwan Region TWD / MyCard)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-base: #0B1120;
+      --bg-card: rgba(17, 24, 39, 0.75);
+      --bg-surface: #131E36;
+      --bg-input: #0B1224;
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-focus: #06B6D4;
+      --primary: #06B6D4;
+      --primary-hover: #0891B2;
+      --primary-glow: rgba(6, 182, 212, 0.35);
+      --tw-blue: #3B82F6;
+      --success: #10B981;
+      --warning: #F59E0B;
+      --danger: #EF4444;
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --text-dim: #64748B;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --font-main: 'Plus Jakarta Sans', 'Prompt', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-base);
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(6, 182, 212, 0.18) 0px, transparent 45%),
+        radial-gradient(at 100% 100%, rgba(59, 130, 246, 0.16) 0px, transparent 45%),
+        radial-gradient(at 50% 30%, rgba(16, 185, 129, 0.06) 0px, transparent 50%);
+      color: var(--text-main);
+      font-family: var(--font-main);
+      min-height: 100vh;
+      line-height: 1.6;
+      padding-bottom: 60px;
+    }
+
+    /* Top Banner / Header */
+    header {
+      background: rgba(11, 17, 32, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 14px 24px;
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, #06B6D4, #3B82F6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      box-shadow: 0 0 20px var(--primary-glow);
+    }
+
+    .brand-text h1 {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      background: linear-gradient(135deg, #FFF, #CBD5E1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-text p {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .region-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(6, 182, 212, 0.12);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #67E8F9;
+    }
+
+    /* Hero Banner */
+    .hero-banner {
+      max-width: 1200px;
+      margin: 24px auto 0;
+      padding: 0 20px;
+    }
+
+    .banner-card {
+      background: linear-gradient(135deg, #0E254A 0%, #0B1930 100%);
+      border: 1px solid rgba(6, 182, 212, 0.25);
+      border-radius: var(--radius-lg);
+      padding: 24px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .banner-card::after {
+      content: '';
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(6, 182, 212, 0.25), transparent 70%);
+      pointer-events: none;
+    }
+
+    .banner-content h2 {
+      font-size: 22px;
+      font-weight: 800;
+      color: #FFF;
+      margin-bottom: 6px;
+    }
+
+    .banner-content p {
+      font-size: 13px;
+      color: #94A3B8;
+    }
+
+    .banner-badge-tw {
+      background: linear-gradient(135deg, #EF4444, #DC2626);
+      color: #FFF;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+
+    /* Main Container */
+    .main-container {
+      max-width: 1200px;
+      margin: 28px auto 0;
+      padding: 0 20px;
+    }
+
+    /* 4-Step Wizard Indicator */
+    .wizard-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .wizard-step {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.3s;
+    }
+
+    .wizard-step.active {
+      border-color: var(--primary);
+      background: rgba(6, 182, 212, 0.08);
+      box-shadow: 0 0 15px rgba(6, 182, 212, 0.15);
+    }
+
+    .wizard-step.completed {
+      border-color: var(--success);
+      background: rgba(16, 185, 129, 0.08);
+    }
+
+    .step-number {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .wizard-step.active .step-number {
+      background: var(--primary);
+      color: #000;
+      box-shadow: 0 0 10px var(--primary-glow);
+    }
+
+    .wizard-step.completed .step-number {
+      background: var(--success);
+      color: #FFF;
+    }
+
+    .step-info .step-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .step-info .step-desc {
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+
+    /* Grid Layout: Left form / Right Summary */
+    .flow-layout {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .flow-layout { grid-template-columns: 1fr; }
+      .wizard-steps { grid-template-columns: 1fr 1fr; }
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      margin-bottom: 24px;
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    /* Form Inputs */
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    input, select {
+      width: 100%;
+      background: var(--bg-input);
+      border: 1px solid var(--border-color);
+      color: #FFF;
+      font-family: var(--font-main);
+      font-size: 14px;
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      transition: all 0.2s;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 12px var(--primary-glow);
+    }
+
+    .input-hint {
+      font-size: 11px;
+      color: #67E8F9;
+      margin-top: 6px;
+      display: block;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      font-size: 14px;
+      font-family: var(--font-main);
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #06B6D4, #3B82F6);
+      color: #FFF;
+      box-shadow: 0 4px 15px var(--primary-glow);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #0891B2, #2563EB);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: #FFF;
+    }
+
+    .btn-block { width: 100%; }
+
+    /* Character Card Display */
+    .character-card {
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.12), rgba(59, 130, 246, 0.08));
+      border: 1px solid rgba(6, 182, 212, 0.35);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 14px;
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .character-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #06B6D4, #3B82F6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      box-shadow: 0 0 15px var(--primary-glow);
+      flex-shrink: 0;
+    }
+
+    .character-details { flex-grow: 1; }
+    .character-name { font-size: 16px; font-weight: 800; color: #FFF; }
+    .character-meta { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+    .character-badge {
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid #10B981;
+      color: #34D399;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    /* Packages Grid */
+    .packages-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .package-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+    }
+
+    .package-card:hover {
+      border-color: rgba(6, 182, 212, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .package-card.selected {
+      border-color: var(--primary);
+      background: rgba(6, 182, 212, 0.12);
+      box-shadow: 0 0 15px rgba(6, 182, 212, 0.25);
+    }
+
+    .package-badge-popular {
+      position: absolute;
+      top: -8px;
+      right: 10px;
+      background: #EF4444;
+      color: #FFF;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 9999px;
+    }
+
+    .package-icon { font-size: 24px; margin-bottom: 8px; }
+    .package-name { font-size: 13px; font-weight: 700; color: #FFF; line-height: 1.3; }
+    .package-price { font-size: 16px; font-weight: 800; color: #67E8F9; margin-top: 6px; }
+    .package-bonus { font-size: 11px; color: #F59E0B; margin-top: 2px; }
+
+    /* Summary Sidebar */
+    .summary-card {
+      position: sticky;
+      top: 88px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 13px;
+    }
+
+    .summary-row.total {
+      border-bottom: none;
+      border-top: 1px solid var(--border-color);
+      margin-top: 8px;
+      padding-top: 14px;
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .total-price {
+      color: #34D399;
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .payment-channel-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      margin: 16px 0;
+    }
+
+    /* Modal Dialog */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+      padding: 20px;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      background: #0E1628;
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+      overflow: hidden;
+    }
+
+    .modal-header {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-title { font-size: 16px; font-weight: 800; }
+    .modal-body { padding: 24px; }
+    .modal-footer {
+      padding: 16px 24px;
+      background: rgba(0, 0, 0, 0.2);
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+
+    /* Toast */
+    .toast-container {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 2000;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .toast-item {
+      background: #0E1628;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <header>
+    <div class="header-inner">
+      <div class="brand-logo">
+        <div class="brand-icon">✨</div>
+        <div class="brand-text">
+          <h1>Aniimo - Webshop UID Top-Up</h1>
+          <p>Official Storefront Direct UID Integration (Taiwan Region)</p>
+        </div>
+      </div>
+      <div class="region-badge">
+        <span>🇹🇼 Region: Taiwan</span>
+        <span>•</span>
+        <span>ค่าเงิน: TWD (MyCard)</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <div class="hero-banner">
+    <div class="banner-card">
+      <div class="banner-content">
+        <span class="banner-badge-tw">🇹🇼 EXCLUSIVE TAIWAN OFFICIAL SHOP BENEFITS</span>
+        <h2>เติมเงินเกม Aniimo ผ่าน UID โดยตรง</h2>
+        <p>ไม่ต้องใช้รหัสผ่าน (No Login Required) • ยืนยันตัวละครทันที • ชำระเงินผ่าน MyCard Points ค่าเงิน TWD</p>
+      </div>
+      <div style="font-size:42px;">🎮</div>
+    </div>
+  </div>
+
+  <main class="main-container">
+    <!-- 4-Step Indicator -->
+    <div class="wizard-steps">
+      <div class="wizard-step active" id="step1">
+        <div class="step-number">1</div>
+        <div class="step-info">
+          <div class="step-title">1. กรอก UID</div>
+          <div class="step-desc">ระบุ UID ผู้เล่น (ตัวเลข)</div>
+        </div>
+      </div>
+      <div class="wizard-step" id="step2">
+        <div class="step-number">2</div>
+        <div class="step-info">
+          <div class="step-title">2. ตรวจสอบตัวละคร</div>
+          <div class="step-desc">ยืนยันชื่อและเลเวล</div>
+        </div>
+      </div>
+      <div class="wizard-step" id="step3">
+        <div class="step-number">3</div>
+        <div class="step-info">
+          <div class="step-title">3. เลือกแพ็กสินค้า</div>
+          <div class="step-desc">แพ็กเกจ TWD ราคาพิเศษ</div>
+        </div>
+      </div>
+      <div class="wizard-step" id="step4">
+        <div class="step-number">4</div>
+        <div class="step-info">
+          <div class="step-title">4. สร้างออเดอร์</div>
+          <div class="step-desc">ชำระผ่าน MyCard</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Layout Grid -->
+    <div class="flow-layout">
+      <!-- Left Column: Form Flow -->
+      <div class="flow-main">
+        
+        <!-- STEP 1 & 2: UID & Server Verification Card -->
+        <div class="card">
+          <div class="card-title">
+            <span>👤 1. ระบุข้อมูลบัญชีผู้เล่น (UID & Game Server)</span>
+          </div>
+
+          <div style="display:grid; grid-template-columns: 1fr 140px; gap: 14px;">
+            <div class="form-group">
+              <label class="form-label">Player UID ในเกม (เฉพาะตัวเลขเท่านั้น)</label>
+              <div class="input-wrapper">
+                <input type="text" id="inputUid" inputmode="numeric" pattern="[0-9]*"
+                  onkeydown="if(!/[0-9]/.test(event.key) && !['Backspace','Delete','ArrowLeft','ArrowRight','Tab','Enter','Home','End'].includes(event.key) && !event.ctrlKey && !event.metaKey){event.preventDefault();}"
+                  onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || event.charCode === 0"
+                  onpaste="setTimeout(() => { this.value = this.value.replace(/[^0-9]/g, ''); }, 0)"
+                  oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                  placeholder="เช่น 412000126173" value="412000126173">
+              </div>
+              <span class="input-hint">⚠️ กรอกเฉพาะตัวเลขเท่านั้น (ระบบบล็อกตัวอักษรและอักขระพิเศษอัตโนมัติ)</span>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">เซิร์ฟเวอร์ (Server)</label>
+              <select id="selectServer">
+                <option value="4" selected>Server 4 (Taiwan/Global)</option>
+                <option value="1">Server 1 (Apac)</option>
+                <option value="2">Server 2 (America)</option>
+                <option value="3">Server 3 (Europe)</option>
+              </select>
+            </div>
+          </div>
+
+          <button class="btn btn-primary" id="btnVerify" onclick="verifyCharacter()">
+            <span>🔍 ตรวจสอบข้อมูลตัวละคร</span>
+          </button>
+
+          <!-- Verified Character Display -->
+          <div id="characterCard" class="character-card" style="display:none;">
+            <div class="character-avatar" id="charAvatar">🧙‍♂️</div>
+            <div class="character-details">
+              <div class="character-name" id="charName">Sweettoast</div>
+              <div class="character-meta">
+                <span>UID: <strong id="charUid">412000126173</strong></span> • 
+                <span>Lv. <strong id="charLevel">80</strong></span> • 
+                <span id="charServer">Server 4</span>
+              </div>
+            </div>
+            <div class="character-badge">✅ ยืนยันถูกต้อง</div>
+          </div>
+        </div>
+
+        <!-- STEP 3: Choose Package -->
+        <div class="card">
+          <div class="card-title">
+            <span>💎 2. เลือกแพ็กเกจสินค้า (Region Taiwan ค่าเงิน TWD)</span>
+          </div>
+
+          <div class="packages-grid" id="packagesContainer">
+            <!-- Dynamically populated from API -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column: Order Summary & Checkout -->
+      <div class="flow-sidebar">
+        <div class="card summary-card">
+          <div class="card-title">
+            <span>📋 3. ยืนยันการสั่งซื้อ</span>
+          </div>
+
+          <div style="font-size:12px; color:var(--text-muted); margin-bottom:4px;">ยอดที่ต้องจ่าย</div>
+          <div style="font-size:26px; font-weight:800; color:#34D399; margin-bottom:12px;">TWD <span id="summaryFinalPrice">138</span></div>
+
+          <div class="summary-row">
+            <span style="color:var(--text-muted);">ชื่อตัวละคร:</span>
+            <strong id="summaryCharName" style="color:#FFF;">Sweettoast</strong>
+          </div>
+          <div class="summary-row">
+            <span style="color:var(--text-muted);">UID:</span>
+            <span id="summaryUid" style="color:#94A3B8;">412000126173</span>
+          </div>
+          <div class="summary-row">
+            <span style="color:var(--text-muted);">Server:</span>
+            <span id="summaryServer">4</span>
+          </div>
+          <div class="summary-row">
+            <span style="color:var(--text-muted);">แพ็ก:</span>
+            <strong id="summaryPackageName" style="color:#67E8F9; font-size:12px; text-align:right;">300 ดาว + โบนัส 30 (ซื้อครั้งแรก +300) x 1</strong>
+          </div>
+          <div class="summary-row">
+            <span style="color:var(--text-muted);">ส่วนลด:</span>
+            <span style="color:#10B981; font-weight:700;">12</span>
+          </div>
+          <div class="summary-row">
+            <span style="color:var(--text-muted);">ช่องทาง:</span>
+            <span style="color:#F87171; font-weight:700;">MyCard Points</span>
+          </div>
+
+          <button class="btn btn-block" id="btnSubmitOrder" style="margin-top:20px; background:#10B981; color:#FFF; box-shadow:0 4px 15px rgba(16,185,129,0.35); font-size:15px; font-weight:800;" onclick="submitOrder()">
+            <span>📋 สร้างออเดอร์</span>
+          </button>
+          <div style="font-size:11px; color:var(--text-dim); text-align:center; margin-top:8px;">
+            ตรวจสอบข้อมูลให้ถูกต้องก่อนสร้างออเดอร์ เพื่อไปหน้าชำระเงิน
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal: Payment Gateway Session Confirmation -->
+  <div class="modal-overlay" id="paymentModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">💳 สร้างออเดอร์ MyCard สำเร็จ</div>
+        <button class="btn btn-outline" style="padding:4px 10px;" onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div style="text-align:center; margin-bottom:18px;">
+          <div style="font-size:44px; margin-bottom:8px;">✅</div>
+          <div style="font-size:16px; font-weight:800; color:#FFF;" id="modalOrderId">ANIIMO-...</div>
+          <div style="font-size:12px; color:var(--text-muted); margin-top:2px;">FunPlus Trade No: <span id="modalFpOrder">FP-...</span></div>
+        </div>
+
+        <div style="background:var(--bg-input); padding:14px; border-radius:var(--radius-sm); border:1px solid var(--border-color); font-size:13px; line-height:1.7;">
+          <div>• <strong>ตัวละคร:</strong> <span id="modalChar">Sweettoast (Lv. 80)</span></div>
+          <div>• <strong>UID:</strong> <span id="modalUid">412000126173</span> (Server 4)</div>
+          <div>• <strong>สินค้า:</strong> <span id="modalPackage">300 ดาว + โบนัส 30</span></div>
+          <div>• <strong>ยอดชำระ:</strong> <strong style="color:#34D399;">TWD <span id="modalAmount">138</span></strong> (MyCard)</div>
+        </div>
+
+        <div style="margin-top:16px; font-size:12px; color:#94A3B8; text-align:center;">
+          💡 ระบบสร้าง Session การชำระเงินและพร้อมส่งต่อไปยังเกตเวย์ <strong>MyCard Billing Auth</strong> โดยตรง
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal()">ปิดหน้าต่าง</button>
+        <button class="btn btn-primary" onclick="proceedToMycard()">
+          <span>🔗 ดำเนินการต่อที่ MyCard</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script>
+    let currentCharacter = null;
+    let currentPackage = null;
+    let packagesList = [];
+    let activePaymentUrl = '';
+
+    // Initialize Page
+    window.addEventListener('DOMContentLoaded', async () => {
+      await loadPackages();
+      // Auto verify initial UID from test assignment
+      verifyCharacter();
+    });
+
+    async function loadPackages() {
+      try {
+        const res = await fetch('/api/v1/aniimo/packages');
+        const data = await res.json();
+        if (data.success) {
+          packagesList = data.data.packages;
+          renderPackages();
+        }
+      } catch (err) {
+        showToast('ผิดพลาด', 'ไม่สามารถโหลดแพ็กเกจสินค้าได้', 'danger');
+      }
+    }
+
+    function renderPackages() {
+      const container = document.getElementById('packagesContainer');
+      container.innerHTML = packagesList.map((pkg, idx) => `
+        <div class="package-card ${idx === 1 ? 'selected' : ''}" onclick="selectPackage('${pkg.id}')" id="pkg-${pkg.id}">
+          ${pkg.isPopular ? '<div class="package-badge-popular">POPULAR</div>' : ''}
+          <div class="package-icon">${pkg.icon}</div>
+          <div class="package-name">${pkg.name}</div>
+          ${pkg.originalPrice && pkg.originalPrice > pkg.price ? `<div style="font-size:11px; color:#94A3B8; text-decoration:line-through; margin-top:4px;">ลดจาก ${pkg.originalPrice}</div>` : ''}
+          <div class="package-price">TWD ${pkg.price}</div>
+        </div>
+      `).join('');
+
+      // Default select popular package (300 stars TWD 138)
+      selectPackage(packagesList[1]?.id || packagesList[0]?.id);
+    }
+
+    function selectPackage(packageId) {
+      document.querySelectorAll('.package-card').forEach(c => c.classList.remove('selected'));
+      const el = document.getElementById(`pkg-${packageId}`);
+      if (el) el.classList.add('selected');
+
+      currentPackage = packagesList.find(p => p.id === packageId);
+      updateSummary();
+      updateStepStatus();
+    }
+
+    async function verifyCharacter() {
+      const uid = document.getElementById('inputUid').value.trim();
+      const server = document.getElementById('selectServer').value;
+
+      if (!uid) {
+        showToast('ข้อมูลไม่ครบถ้วน', 'กรุณาระบุ Player UID ของผู้เล่น', 'warning');
+        return;
+      }
+
+      if (!/^\d+$/.test(uid)) {
+        showToast('ข้อมูลไม่ถูกต้อง', 'UID ต้องเป็นตัวเลขเท่านั้น (ห้ามใส่ตัวอักษร)', 'warning');
+        return;
+      }
+
+      const btn = document.getElementById('btnVerify');
+      btn.innerText = 'กำลังตรวจสอบ...';
+      btn.disabled = true;
+
+      try {
+        const res = await fetch('/api/v1/aniimo/verify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ uid, server })
+        });
+
+        const data = await res.json();
+        if (data.success) {
+          currentCharacter = data.data;
+          displayCharacter(data.data);
+          updateSummary();
+          updateStepStatus();
+          showToast('ตรวจสอบสำเร็จ', `พบตัวละคร: ${data.data.roleName} (Lv. ${data.data.level})`, 'success');
+        } else {
+          currentCharacter = null;
+          document.getElementById('characterCard').style.display = 'none';
+          showToast('ไม่พบข้อมูล', data.error.message, 'danger');
+        }
+      } catch (err) {
+        showToast('เกิดข้อผิดพลาด', 'ไม่สามารถเชื่อมต่อ Server ได้', 'danger');
+      } finally {
+        btn.innerText = '🔍 ตรวจสอบข้อมูลตัวละคร';
+        btn.disabled = false;
+      }
+    }
+
+    function displayCharacter(char) {
+      document.getElementById('charName').innerText = char.roleName;
+      document.getElementById('charUid').innerText = char.uid;
+      document.getElementById('charLevel').innerText = char.level;
+      document.getElementById('charServer').innerText = char.serverName;
+      document.getElementById('characterCard').style.display = 'flex';
+    }
+
+    function updateSummary() {
+      if (currentCharacter) {
+        document.getElementById('summaryCharName').innerText = currentCharacter.roleName;
+        document.getElementById('summaryUid').innerText = currentCharacter.uid;
+        document.getElementById('summaryServer').innerText = currentCharacter.serverName;
+      }
+
+      if (currentPackage) {
+        document.getElementById('summaryPackageName').innerText = currentPackage.name;
+        const orig = currentPackage.price;
+        const discount = currentPackage.isPopular ? 12 : Math.round(orig * 0.08);
+        const finalP = Math.max(1, orig - discount);
+
+        document.getElementById('summaryOriginalPrice').innerText = orig;
+        document.getElementById('summaryDiscount').innerText = discount;
+        document.getElementById('summaryFinalPrice').innerText = finalP;
+      }
+    }
+
+    function updateStepStatus() {
+      const step1 = document.getElementById('step1');
+      const step2 = document.getElementById('step2');
+      const step3 = document.getElementById('step3');
+      const step4 = document.getElementById('step4');
+
+      if (currentCharacter) {
+        step1.className = 'wizard-step completed';
+        step2.className = 'wizard-step completed';
+      } else {
+        step1.className = 'wizard-step active';
+        step2.className = 'wizard-step';
+      }
+
+      if (currentPackage) {
+        step3.className = 'wizard-step completed';
+        step4.className = 'wizard-step active';
+      }
+    }
+
+    async function submitOrder() {
+      if (!currentCharacter) {
+        showToast('กรุณาตรวจสอบตัวละคร', 'ต้องระบุ UID และตรวจสอบตัวละครให้เรียบร้อยก่อน', 'warning');
+        return;
+      }
+
+      if (!currentPackage) {
+        showToast('กรุณาเลือกแพ็กเกจ', 'โปรดเลือกแพ็กเกจสินค้าที่ต้องการเติม', 'warning');
+        return;
+      }
+
+      const btn = document.getElementById('btnSubmitOrder');
+      btn.innerText = 'กำลังสร้างออเดอร์ MyCard...';
+      btn.disabled = true;
+
+      try {
+        const res = await fetch('/api/v1/aniimo/order', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            uid: currentCharacter.uid,
+            serverId: currentCharacter.serverId,
+            packageId: currentPackage.id,
+            payChannel: 'mycard_points'
+          })
+        });
+
+        const data = await res.json();
+        if (data.success) {
+          const o = data.data;
+          activePaymentUrl = o.paymentUrl;
+          document.getElementById('modalOrderId').innerText = o.orderId;
+          document.getElementById('modalFpOrder').innerText = o.fpOrderId;
+          document.getElementById('modalChar').innerText = `${o.characterName} (Lv. ${o.characterLevel})`;
+          document.getElementById('modalUid').innerText = o.uid;
+          document.getElementById('modalPackage').innerText = o.packageName;
+          document.getElementById('modalAmount').innerText = o.finalPrice;
+          
+          openModal();
+          showToast('สร้างออเดอร์สำเร็จ', `เลขออเดอร์: ${o.orderId}`, 'success');
+        } else {
+          showToast('เกิดข้อผิดพลาด', data.error.message, 'danger');
+        }
+      } catch (err) {
+        showToast('เชื่อมต่อผิดพลาด', 'ไม่สามารถสร้างออเดอร์ได้', 'danger');
+      } finally {
+        btn.innerText = '🚀 สร้างออเดอร์และไปหน้าชำระเงิน';
+        btn.disabled = false;
+      }
+    }
+
+    function openModal() { document.getElementById('paymentModal').classList.add('active'); }
+    function closeModal() { document.getElementById('paymentModal').classList.remove('active'); }
+
+    function proceedToMycard() {
+      showToast('กำลังส่งต่อไป MyCard', 'เปิดหน้าชำระเงิน MyCard Billing Gateway (Simulation)...', 'info');
+      setTimeout(() => {
+        window.open(activePaymentUrl, '_blank');
+      }, 500);
+    }
+
+    function showToast(title, message, type = 'info') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = 'toast-item';
+      const icons = { success: '✅', warning: '⚠️', danger: '❌', info: 'ℹ️' };
+      toast.innerHTML = `
+        <span style="font-size:20px;">${icons[type] || 'ℹ️'}</span>
+        <div>
+          <strong style="display:block; font-size:13px; color:#FFF;">${title}</strong>
+          <span style="font-size:12px; color:var(--text-muted);">${message}</span>
+        </div>
+      `;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.3s';
+        setTimeout(() => toast.remove(), 300);
+      }, 4000);
+    }
+  </script>
+</body>
+</html>
